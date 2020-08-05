@@ -226,6 +226,10 @@ config TARGET_MX6QLUCA
 ```
 source "board/freescale/mx6qluca/Kconfig"
 ```
+10. Modify common/board_r.c
+```
+/* power_init_board */
+```
 ### 3. Network modify
 1. Net init work flow
 ```
@@ -261,4 +265,45 @@ To
 #define CONFIG_PHY_REALTEK
 ...
 #define CONFIG_FEC_MXC_PHYADDR 5     //硬件地址
+```
+### 4. Set envs and bootargs(common/board_r.c)
+```
+static int initr_env(void)
+{
+        char bootargs[300] = {0};
+        char displayArgs[300] = {0};
+	/* initialize environment */
+	if (should_load_env())
+		env_relocate();
+	else
+		set_default_env(NULL);
+
+	/* Initialize from environment */
+	load_addr = getenv_ulong("loadaddr", 16, load_addr);
+#if defined(CONFIG_SYS_EXTBDINFO)
+#if defined(CONFIG_405GP) || defined(CONFIG_405EP)
+#if defined(CONFIG_I2CFAST)
+	/*
+	 * set bi_iic_fast for linux taking environment variable
+	 * "i2cfast" into account
+	 */
+	{
+		char *s = getenv("i2cfast");
+
+		if (s && ((*s == 'y') || (*s == 'Y'))) {
+			gd->bd->bi_iic_fast[0] = 1;
+			gd->bd->bi_iic_fast[1] = 1;
+		}
+	}
+#endif /* CONFIG_I2CFAST */
+#endif /* CONFIG_405GP, CONFIG_405EP */
+#endif /* CONFIG_SYS_EXTBDINFO */
+        sprintf(displayArgs, "video=mxcfb0:dev=hdmi,1920x1080M@60,bpp=32 video=mxcfb1:off video=mxcfb2:off video=mxcfb3:off");
+        sprintf(bootargs, "console=ttymxc0,115200 androidboot.console=ttymxc0 consoleblank=0 vmalloc=256M %s root=/dev/mmcblk3p2 rootwait rw", displayArgs);
+        setenv("bootcmd", "fatload mmc 2:1 0x12000000 topeet_9.7inch.dtb;fatload mmc 2:1 0x13000000 zImage;bootz 0x13000000 - 0x12000000");
+        setenv("bootargs", bootargs);
+        printf("bootargs=%s\n", bootargs);
+
+	return 0;
+}
 ```
