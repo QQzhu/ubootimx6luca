@@ -86,7 +86,8 @@
 #define CONFIG_FEC_MXC_PHYADDR		1
 
 #define CONFIG_PHYLIB
-#define CONFIG_PHY_ATHEROS
+/* #define CONFIG_PHY_ATHEROS */
+#define CONFIG_PHY_REALTEK
 
 /* allow to overwrite serial and ethaddr */
 #define CONFIG_ENV_OVERWRITE
