@@ -439,9 +439,7 @@ static int should_load_env(void)
 
 static int initr_env(void)
 {
-        char bootargs[300] = {0};
-        char displayArgs[300] = {0};
-	/* initialize environment */
+        /* initialize environment */
 	if (should_load_env())
 		env_relocate();
 	else
@@ -467,12 +465,7 @@ static int initr_env(void)
 #endif /* CONFIG_I2CFAST */
 #endif /* CONFIG_405GP, CONFIG_405EP */
 #endif /* CONFIG_SYS_EXTBDINFO */
-        sprintf(displayArgs, "video=mxcfb0:dev=hdmi,1920x1080M@60,bpp=32 video=mxcfb1:off video=mxcfb2:off video=mxcfb3:off");
-        sprintf(bootargs, "console=ttymxc0,115200 androidboot.console=ttymxc0 consoleblank=0 vmalloc=256M %s root=/dev/mmcblk3p2 rootwait rw", displayArgs);
-        setenv("bootcmd", "fatload mmc 2:1 0x12000000 topeet_9.7inch.dtb;fatload mmc 2:1 0x13000000 zImage;bootz 0x13000000 - 0x12000000");
-        setenv("bootargs", bootargs);
-        printf("bootargs=%s\n", bootargs);
-
+        
 	return 0;
 }
 

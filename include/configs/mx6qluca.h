@@ -39,7 +39,7 @@
 #include "mx6sabre_common.h"
 
 #define CONFIG_SYS_FSL_USDHC_NUM	3
-#define CONFIG_SYS_MMC_ENV_DEV		1	/* SDHC3 */
+#define CONFIG_SYS_MMC_ENV_DEV		2	/* SDHC3 */
 #define CONFIG_SYS_MMC_ENV_PART     0   /* user partition */
 
 #ifdef CONFIG_SYS_USE_SPINOR
