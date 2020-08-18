@@ -83,11 +83,17 @@
 #define IMX_FEC_BASE			ENET_BASE_ADDR
 #define CONFIG_FEC_XCV_TYPE		RGMII
 #define CONFIG_ETHPRIME			"FEC"
-#define CONFIG_FEC_MXC_PHYADDR		1
+#define CONFIG_FEC_MXC_PHYADDR		0
 
 #define CONFIG_PHYLIB
 /* #define CONFIG_PHY_ATHEROS */
 #define CONFIG_PHY_REALTEK
+
+#define CONFIG_ETHADDR          0e:b4:00:52:24:0e
+#define CONFIG_NETMASK          255.255.255.0
+#define CONFIG_IPADDR           192.168.1.165
+#define CONFIG_SERVERIP         192.168.1.164
+#define CONFIG_GATEWAYIP        192.168.1.1
 
 /* allow to overwrite serial and ethaddr */
 #define CONFIG_ENV_OVERWRITE
@@ -102,9 +108,9 @@
 #define CONFIG_CMD_SETEXPR
 #undef CONFIG_CMD_IMLS
 
-#define CONFIG_BOOTDELAY               1
+#define CONFIG_BOOTDELAY               3
 
-#define CONFIG_LOADADDR                        0x12000000
+#define CONFIG_LOADADDR                0x13000000
 #define CONFIG_SYS_TEXT_BASE           0x17800000
 #define CONFIG_SYS_MMC_IMG_LOAD_PART	1
 
@@ -189,7 +195,7 @@
 	"script=boot.scr\0" \
 	"image=zImage\0" \
 	"fdt_file=" CONFIG_DEFAULT_FDT_FILE "\0" \
-	"fdt_addr=0x13000000\0" \
+	"fdt_addr=0x12000000\0" \
 	"boot_fdt=try\0" \
 	"ip_dyn=yes\0" \
 	"console=" CONFIG_CONSOLE_DEV "\0" \
