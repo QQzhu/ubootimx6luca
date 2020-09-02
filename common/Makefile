@@ -37,6 +37,7 @@ obj-y += cmd_help.o
 obj-y += cmd_version.o
 
 # environment
+obj-y += cmd_download.o
 obj-y += env_attr.o
 obj-y += env_callback.o
 obj-y += env_flags.o
